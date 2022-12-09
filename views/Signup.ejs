@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layouts/head'); %>
+
+    <body class="d-flex flex-column">
+        <main class="flex-shrink-0">
+
+            <%- include('layouts/navbar'); %>
+
+                <!-- Pricing section-->
+                <section class="bg-darkk py-5">
+                    <div class="container px-5 my-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder">Welcome to Signup Page</h1>
+                            <p class="lead fw-normal text-muted mb-0">Signup if you are a
+                                new member</p>
+                        </div>
+
+                        <div class="registration-form">
+
+                            <% if(errors !=null && errors.length>0) { %>
+                                <ul class="list-group">
+            
+                                    <% for (var i=0 ; i < errors.length; i++) { %>
+                                        <li class="list-group-item list-group-item-danger">
+                                            <%= errors[i] %>
+                                        </li>
+                                    <% } %>
+                                </ul>
+                            <% } %>
+
+                            <form action="/user/register" method="POST" name="signup_form" id="signup_form">
+                                <div class="loginh1">
+                                    <h3>Register New User</h3>
+                                    <img src="/assets/login.png" class="rounded-circle p-2 bg-white">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control item" id="username" name="username"
+                                        placeholder="Username">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="password" class="form-control item" id="password"  name="password" 
+                                        placeholder="Password" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control item" id="reenter_password"
+                                        placeholder="Re-enter Password"  >
+                                </div>
+
+                                <div class="form-group">
+                                    <select name="usertype" id="usertype" name="usertype" class="form-control item">
+                                        <option value="">Select User Type</option>
+                                        <option value="Driver">Driver</option>
+                                        <option value="Examiner">Examiner</option>
+                                        <option value="Admin">Admin</option>
+                                      </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="submit" id = "registerbtn" class="btn btn-block login" value="Register">
+                                </div>
+                                
+
+                                <div id="newUser">
+                                    <a href="/auth/login"> Already a user? Signin here </a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </section>
+        </main>
+
+        <%- include('layouts/footer'); %>
+
+            <%- include('layouts/script'); %>
+
+    </body>
+
+</html>

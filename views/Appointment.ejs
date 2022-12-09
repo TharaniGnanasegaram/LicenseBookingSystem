@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layouts/head'); %>
+
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+
+            <%- include('layouts/navbar'); %>
+
+                <!-- Header-->
+                <header class="bg-darkk py-1">
+                    <div class="container px-2">
+                        <div class="row gx-5 align-items-center justify-content-center">
+                            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                                <div class="my-5 text-center text-xl-start">
+                                    <h1 class="display-5 fw-bolder mb-2">Appointment Portal
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img
+                                    class="img-fluid rounded-3 my-5 bannerimg" src="/assets/appointment.jpg" alt="appointment" />
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+
+                <div id="appointmentdiv">
+
+                    <h3> Create Appointment </h3>
+                    <form action="/post/appointment/<%=appointDate %>" method="POST" name="appointmentCreate" id="appointmentCreate">
+
+                        <!-- <h5> Select a date </h5> -->
+
+                        <div class="appointmentinfo">
+
+                            <div>
+                                <h6> Select a date </h6>
+                                <input type="date" id="appointmentdate" class="form-control item"
+                                    name="appointmentdate" value=<%=appointDate %>>
+                            </div>
+
+                            <div id = "availabletimes" >
+                                <h6> Available time slots to add </h6>
+
+                            <% let bookedTime = [] %> 
+
+                            <% let timeSlots = ["9.00AM", "9.30AM", "10.00AM", "10.30AM", "11.00AM", "11.30AM", "12.00PM", "12.30PM", "01.00PM", "01.30PM", "02.00PM" ] %>     
+                            
+                            <% if(AppointmentRetrieved !=null ) { %> 
+
+                                
+                                <% for (var i = 0; i < AppointmentRetrieved.length; i++) { %>
+                                    
+                                    <% bookedTime.push(AppointmentRetrieved[i]['appointmenttime']) %>     
+                                
+                                <% } %>
+                                 
+                                <% for (var a = 0; a < timeSlots.length; a++) { %>
+
+                                    <% if(bookedTime.includes(timeSlots[a])) { %>
+    
+                                        <input type="submit" class="bookedappointTime" name="bookedappointTime" disabled = true value=<%=timeSlots[a] %> >
+                                    
+                                    <% } %>
+    
+                                    <% if(!bookedTime.includes(timeSlots[a])) { %>
+    
+                                        <input type="submit" class="appointTime" name="appointmenttime" value=<%=timeSlots[a] %> >
+    
+                                    <% } %>
+    
+                                <% } %>
+
+                            <% } %> 
+                             
+                            </div>
+
+                        </div>
+                        
+                    </form>
+
+
+                </div>
+        </main>
+
+
+        <%- include('layouts/footer'); %>
+
+            <%- include('layouts/script'); %>
+
+    </body>
+
+</html>

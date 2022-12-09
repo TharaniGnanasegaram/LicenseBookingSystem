@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layouts/head'); %>
+
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+
+            <%- include('layouts/navbar'); %>
+
+                <!-- Header-->
+                <header class="bg-darkk py-1">
+                    <div class="container px-2">
+                        <div class="row gx-5 align-items-center justify-content-center">
+                            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                                <div class="my-5 text-center text-xl-start">
+                                    <h1 class="display-5 fw-bolder mb-2">Examiner Portal
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img
+                                    class="img-fluid rounded-3 my-5 bannerimg" src="/assets/exam.png" alt="examiner" />
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                
+
+                <div id="driverTest">
+                    <h4> Driver Details</h4>
+                    <table class="driverTestTable">
+
+                                <tr>
+                                    <td> <b>First Name </b> </td>
+                                    <td>
+                                        <%= driverRetrieved.firstname %>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td> <b> Last Name </b> </td>
+                                    <td>
+                                        <%= driverRetrieved.lastname %>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td> <b> Test Type </b></td>
+                                    <td>
+                                        <%= driverRetrieved.testtype %>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td> <b>Vehicle Model </b></td>
+                                    <td>
+                                        <%= driverRetrieved.cardetails.make %>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td> <b>Vehicle Model </b> </td>
+                                    <td>
+                                        <%= driverRetrieved.cardetails.model %>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td> <b>Plate Number </b> </td>
+                                    <td>
+                                        <%= driverRetrieved.cardetails.platenumber %>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td> <b>Test Date & Time  </b> </td>
+                                    <td>
+                                        <%= driverRetrieved.appointmentId.appointmentdate %>  <%= driverRetrieved.appointmentId.appointmenttime %>
+                                    </td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td style="color: rgb(88, 20, 15);"> <b> Test Result </b> </td>
+                                        <% if(driverRetrieved.result) { %> 
+                                            <td style="color: rgb(22, 165, 30);"> Pass </td>
+                                        <% } %>
+
+                                        <% if(driverRetrieved.result == false) { %> 
+                                            <td style="color: rgb(201, 14, 14);"> Fail </td>
+                                        <% } %>
+
+                                        <% if(driverRetrieved.result == null) { %> 
+                                            <td > Pending </td>
+                                        <% } %>
+                                    
+                                </tr>
+
+                    </table>
+                </div>
+
+                <div id="resultForm">
+            
+                    <h4> Comments & Test Result </h4>
+                    <form action="/examiner/submitResult/<%=driverRetrieved.id %>" method="POST"
+                        name="examinerResultForm" id="examinerResultForm">
+
+                            <div>
+                                <label for="comments">Comments</label> 
+                                <textarea id="comments" class="form-control item" name="comments" > </textarea>
+                                
+                                <label for="testresult">Test Result</label> 
+                                <label class="switch">
+                                    <input type="checkbox" name="result">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+
+                        <label for="submit"></label>
+                        <input type="submit" value="Submit">
+                    </form>
+
+
+                </div>
+
+        </main>
+
+
+        <%- include('layouts/footer'); %>
+
+            <%- include('layouts/script'); %>
+
+    </body>
+
+</html>

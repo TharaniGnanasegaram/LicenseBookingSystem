@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layouts/head'); %>
+
+    <body class="d-flex flex-column">
+        <main class="flex-shrink-0">
+
+            <%- include('layouts/navbar'); %>
+
+                <!-- Page content-->
+                <section class="py-5">
+                    <div class="container px-5">
+                        <!-- Contact form-->
+                        <div class="bg-darkk rounded-3 py-5 px-4 px-md-5 mb-5">
+                            <div class="text-center mb-5">
+                                <h1 class="fw-bolder">Welcome to G2 License Application</h1>
+                            </div>
+
+                        </div>
+
+                        <h6>
+                            If you are at least 16 years old, you can apply for driver’s licence in Ontario. As a new
+                            driver, you will need to practice driving and gain experience over time. For most people,
+                            the two-step process takes about 20 months to finish. Here’s how you get a driver’s licence.
+                        </h6>
+
+                        <div id="tabs">
+
+                            <ul>
+                                <li><a href="#tabs-1">G2 Application</a></li>
+                                <% if(userRetrieved.licenseno !="licenseno") { %>
+                                    <li><a href="#tabs-2">Create Appointment</a></li>
+                                <% } %>
+                                
+                            </ul>
+
+                            <div id="tabs-1">
+                                <div id="booking">
+                                    <h3> G2 Licence Application </h3>
+        
+        
+                                    <form action="/post/storeG2" method="POST" name="application_form" id="application_form">
+        
+                                        <h5> Personal Details </h5>
+        
+                                        <div class="personalinfo">
+                                            <div>
+                                                <label for="firstname">First Name</label> <span>*</span>
+                                                <input type="text" id="firstname" class="form-control item" name="firstname"
+                                                    size="50" placeholder="First name"
+                                                    value=<%=(userRetrieved==null)?"":userRetrieved.firstname %> >
+                                            </div>
+        
+                                            <div>
+                                                <label for="lastname">Last Name</label> <span>*</span>
+                                                <input type="text" id="lastname" class="form-control item" name="lastname"
+                                                    size="50" placeholder="Last name"
+                                                    value=<%=(userRetrieved==null)?"":userRetrieved.lastname %>>
+                                            </div>
+        
+                                            <% if(userRetrieved.licenseno=="licenseno" ) { %>
+                                                <div>
+                                                    <label for="licenseno">License Number</label> <span>*</span>
+                                                    <input type="text" id="licenseno" class="form-control item" name="licenseno"
+                                                        size="8" placeholder="8 Character License Number">
+                                                </div>
+                                                <% } %>
+        
+        
+                                                    <div>
+                                                        <label for="age">Age</label> <span>*</span>
+                                                        <input type="number" id="age" class="form-control item" name="age"
+                                                            min="16" placeholder="age"
+                                                            value=<%=(userRetrieved==null)?"":userRetrieved.age %> >
+                                                    </div>
+        
+        
+                                                    <% if(userRetrieved.licenseno=="licenseno" ) { %>
+                                                        <div>
+                                                            <label for="dob">Date of Birth</label> <span>*</span>
+                                                            <input type="date" id="dob" class="form-control item" name="dob"
+                                                             placeholder="Date of Birth"  >
+                                                        </div>
+                                                    <% } %>
+        
+                                                    <% if(userRetrieved.licenseno!="licenseno" ) { %>
+                                                        <div>
+                                                            <label for="dob">Date of Birth</label> <span>*</span>
+                                                            <input type="text" id="dob" class="form-control item" name="dob"
+                                                                 placeholder="Date of Birth"
+                                                                value=<%=(userRetrieved==null)?"":userRetrieved.dob.toLocaleDateString()
+                                                                %> >
+                                                        </div>
+                                                    <% } %>
+        
+                                        </div>
+        
+        
+                                        <h5> Car Details </h5>
+        
+                                        <div class="personalinfo">
+        
+                                            <div>
+                                                <label for="make">Make</label> <span>*</span>
+                                                <input type="text" id="make" class="form-control item" name="cardetails[make]"
+                                                    placeholder="Vehicle Make"
+                                                    value=<%=(userRetrieved==null)?"":userRetrieved.cardetails.make %> >
+                                            </div>
+        
+                                            <div>
+                                                <label for="model">Model</label> <span>*</span>
+                                                <input type="text" id="model" class="form-control item" name="cardetails[model]"
+                                                    placeholder="Vehicle Model"
+                                                    value=<%=(userRetrieved==null)?"":userRetrieved.cardetails.model %> >
+                                            </div>
+        
+        
+                                            <div>
+                                                <label for="vehicleyear">Year</label> <span>*</span>
+                                                <!-- <select id="vehicleyear" class="form-control item" name="cardetails[vehicleyear]"
+                                                        placeholder="Vehicle Model" required = "true">
+                                                    </select> -->
+                                                <input type="number" id="vehicleyear" class="form-control item"
+                                                    name="cardetails[vehicleyear]" min='1980'
+                                                    placeholder="Vehicle  registered Year"
+                                                    value=<%=(userRetrieved==null)?"":userRetrieved.cardetails.vehicleyear %>>
+                                            </div>
+        
+        
+                                            <div>
+                                                <label for="platenumber">Plate Number</label> <span>*</span>
+                                                <input type="text" id="platenumber" class="form-control item"
+                                                    name="cardetails[platenumber]" placeholder="Vehicle Plate Number"
+                                                    value=<%=(userRetrieved==null)?"":userRetrieved.cardetails.platenumber %>
+                                                >
+                                            </div>
+        
+                                        </div>
+        
+                                        <% if(userRetrieved.licenseno=="licenseno" ) { %>
+                                        <label for="submit"></label>
+                                        <input type="submit" value="Submit My Application">
+                                        <% } %>
+                                    </form>
+        
+                                </div>
+                            </div>
+
+                            <% if(userRetrieved.appointmentId != null && userRetrieved.testtype == "G2" ) { %>
+
+                                <div id = "tabs-2">
+                                
+                                    <div id="appointmentdiv">
+        
+                                        <h3> Your Appointment </h3>
+
+                                        <div>
+                                            <label style="color: midnightblue;">Appointment Date</label>
+                                            <input type="text" class="form-control item" 
+                                                value=<%=userRetrieved.appointmentId.appointmentdate %> >
+                                        </div>
+
+                                        <div>
+                                            <label style="color: midnightblue;">Appointment Time</label>
+                                            <input type="text" class="form-control item" 
+                                                value=<%=userRetrieved.appointmentId.appointmenttime %> >
+                                        </div>
+                    
+                                    </div>
+        
+                                
+                                </div>
+
+                            <% } %>  
+
+                            <% if(userRetrieved.licenseno !="licenseno" &&  userRetrieved.appointmentId == null ) { %>
+                                <div id = "tabs-2">
+                                
+                        
+                                    <div id="appointmentdiv">
+        
+                                        <h3> Create Appointment </h3>
+                                        <form action="/g2/bookAppointment/<%=appointDate %>" method="POST" name="g2appointmentCreate" id="g2appointmentCreate">
+                
+                                            <div class="appointmentinfo">
+        
+                                                <div>
+                                                    <h6> Select a date </h6>
+                                                    <input type="date" id="testDate" class="form-control item" value=<%=appointDate %>>
+                                                </div>
+
+                                                <input type="hidden" name = "testtype" value="G2">
+                                            
+                                                <div id = "availabletimes" >
+                                                    <h6> Select a suitable time slot </h6>
+                                            
+                                                <% let availabletimeSlots = [] %> 
+                                            
+                                                <% if(AppointmentRetrieved !=null ) { %> 
+                                                        
+                                                    <% for (var i = 0; i < AppointmentRetrieved.length; i++) { %>
+                                                            
+                                                        <% availabletimeSlots.push(AppointmentRetrieved[i]['appointmenttime']) %>     
+                                                        
+                                                    <% } %>
+                                                    
+                                                    <% if(availabletimeSlots.length == 0 ) { %> 
+                                                        <h6 id = "message">Sorry, No time slots available on this date. </h6>
+                                                    <% } %>  
+                                                    
+                                                    <% if(availabletimeSlots.length > 0 ) { %> 
+                                                        <% for (var a = 0; a < availabletimeSlots.length; a++) { %>
+                                                
+                                                            <input type="submit" class="appointTime" name="appointmenttime" value=<%=availabletimeSlots[a] %> >
+                                                    
+                                                        <% } %>
+                                                    <% } %> 
+
+                                                   
+
+                                                <% } %> 
+                                                 
+                                                </div>
+                                            
+                                            </div>
+                                            
+                                        </form>
+                    
+                    
+                                    </div>
+        
+                                
+                                </div>
+                            <% } %>
+                            
+
+                        </div>
+                       
+
+                    </div>
+                </section>
+        </main>
+
+        <%- include('layouts/footer'); %>
+
+            <%- include('layouts/script'); %>
+
+                <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                <!-- * *                               SB Forms JS                               * *-->
+                <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+                <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+
+</html>

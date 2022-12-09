@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layouts/head'); %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <body class="d-flex flex-column">
+        <main class="flex-shrink-0">
+
+            <%- include('layouts/navbar'); %>
+
+                <!-- Page content-->
+                <section class="py-5">
+                    <div class="container px-5">
+
+                        <section class="py-5">
+                            <div class="container px-5">
+                                <div class="bg-darkk rounded-3 py-5 px-4 px-md-5 mb-5">
+                                    <div class="text-center mb-5">
+                                        <h1 class="fw-bolder">Welcome to G License Application</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- <div class="container h-50">
+                            <h5>Search your license Information using the below search bar</h5>
+                            <div class="d-flex justify-content-center h-50">
+                                <div class="searchbar">
+                                    <input class="search_input" id="license_no_input" type="text" name=""
+                                        placeholder="Enter your license number">
+
+                                    <a id="searchbylicense" class="search_icon"><i class="fas fa-search"></i></a>
+                                </div>
+
+                                <% if(userRetrieved !=null && userRetrieved !="" ) { %>
+                                    <div class="clearbar">
+                                        <a id="clearresults" class="clear_icon"><i class="fas fa-times"></i></a>
+                                    </div>
+                                    <% } %>
+                            </div>
+                        </div> -->
+
+
+                        <div id="tabs">
+
+                            <ul>
+                                <li><a href="#tabs-1">G Application</a></li>
+                                <% if(userRetrieved !=null && userRetrieved.licenseno !="licenseno") { %>
+                                    <li><a href="#tabs-2">Create Appointment</a></li>
+                                <% } %>
+                                
+                            </ul>
+
+                            <div id="tabs-1">
+
+                                <% if(userRetrieved !=null && userRetrieved.licenseno != "licenseno") { %> 
+
+                                    <div id="booking">
+            
+                                        <h3> Retrieved License Results </h3>
+                                        <form action="/updatelicensedetail/<%=userRetrieved.id %>" method="POST"
+                                            name="display_license_detail" id="display_license_detail">
+            
+                                            <h5> Personal Details </h5>
+            
+                                            <div class="personalinfo">
+            
+                                                <div>
+                                                    <label for="firstname">First Name</label> 
+                                                    <input type="text" id="firstname" class="form-control item"
+                                                        name="firstname" readonly=true value=<%=userRetrieved.firstname
+                                                        %> >
+                                                </div>
+            
+                                                <div>
+                                                    <label for="lastname">Last Name</label> 
+                                                    <input type="text" id="lastname" class="form-control item"
+                                                        name="lastname" readonly=true value=<%=userRetrieved.lastname %>>
+                                                </div>
+            
+                                                <!-- <div>
+                                                    <label for="licenseno">License Number</label> 
+                                                    <input type="text" id="licenseno" class="form-control item"
+                                                        name="licenseno" readonly=true value=<%=userRetrieved.licenseno
+                                                        %>>
+                                                </div> -->
+            
+                                                <div>
+                                                    <label for="age">Age</label> 
+                                                    <input type="number" id="age" class="form-control item" name="age"
+                                                        readonly=true value=<%=userRetrieved.age %> >
+                                                </div>
+            
+            
+                                                <div>
+                                                    <label for="dob">Date of Birth</label>
+                                                    <input type="text" id="dob" class="form-control item" name="dob"
+                                                        readonly=true value=<%=userRetrieved.dob.toLocaleDateString() %>
+                                                    >
+                                                </div>
+                                            </div>
+            
+            
+                                            <h5> Car Details </h5>
+            
+                                            <div class="personalinfo">
+            
+                                                <div>
+                                                    <label for="make">Make</label> <span>*</span>
+                                                    <input type="text" id="make" class="form-control item"
+                                                        name="cardetails[make]" placeholder="Vehicle Make" required="true"
+                                                        value=<%=userRetrieved.cardetails.make %> >
+                                                </div>
+            
+                                                <div>
+                                                    <label for="model">Model</label> <span>*</span>
+                                                    <input type="text" id="model" class="form-control item"
+                                                        name="cardetails[model]" placeholder="Vehicle Model" required="true"
+                                                        value=<%=userRetrieved.cardetails.model %> >
+                                                </div>
+            
+            
+                                                <div>
+                                                    <label for="vehicleyear">Year</label> <span>*</span>
+                                                    <input type="number" id="vehicleyear" class="form-control item"
+                                                        name="cardetails[vehicleyear]" placeholder="Vehicle registered Year"
+                                                        required="true" min='1980'
+                                                        value=<%=userRetrieved.cardetails.vehicleyear %> >
+                                                </div>
+            
+            
+                                                <div>
+                                                    <label for="platenumber">Plate Number</label> <span>*</span>
+                                                    <input type="text" id="platenumber" class="form-control item"
+                                                        name="cardetails[platenumber]" placeholder="Vehicle Plate Number"
+                                                        required="true" value=<%=userRetrieved.cardetails.platenumber %>
+                                                    >
+                                                </div>
+                                            </div>
+            
+                                            <label for="submit"></label>
+                                            <input type="submit" value="Update Details">
+                                        </form>
+            
+            
+                                    </div>
+            
+                                    <% } %> 
+            
+                                    <% if(userRetrieved.licenseno == "licenseno") { %> 
+                                        <h3 style="text-align: center;">Please add your details in G2 License page first.</h3>
+                                    <% } %> 
+
+                            </div>
+
+                            <div id = "tabs-2">
+
+                                <% if(userRetrieved.appointmentId != null && userRetrieved.testtype =="G" ) { %>
+
+                                    <div id = "tabs-2">
+                                    
+                                        <div id="appointmentdiv">
+            
+                                            <h3> Your Appointment </h3>
+    
+                                            <div>
+                                                <label style="color: midnightblue;">Appointment Date</label>
+                                                <input type="text" class="form-control item" 
+                                                    value=<%=userRetrieved.appointmentId.appointmentdate %> >
+                                            </div>
+    
+                                            <div>
+                                                <label style="color: midnightblue;">Appointment Time</label>
+                                                <input type="text" class="form-control item" 
+                                                    value=<%=userRetrieved.appointmentId.appointmenttime %> >
+                                            </div>
+                        
+                                        </div>
+            
+                                    
+                                    </div>
+    
+                                <% } %> 
+
+                                <% if(userRetrieved.licenseno !="licenseno" &&  userRetrieved.appointmentId == null ) { %>
+                                    <div id = "tabs-2">
+                                    
+                            
+                                        <div id="appointmentdiv">
+            
+                                            <h3> Create Appointment </h3>
+                                            <form action="/g/bookAppointment/<%=appointDate %>" method="POST" name="g2appointmentCreate" id="g2appointmentCreate">
+                    
+                                                <div class="appointmentinfo">
+            
+                                                    <div>
+                                                        <h6> Select a date </h6>
+                                                        <input type="date" id="gTestDate" class="form-control item" value=<%=appointDate %>>
+                                                    </div>
+    
+                                                    <input type="hidden" name = "testtype" value="G">
+                                                
+                                                    <div id = "availabletimes" >
+                                                        <h6> Select a suitable time slot </h6>
+                                                
+                                                    <% let availabletimeSlots = [] %> 
+                                                
+                                                    <% if(AppointmentRetrieved !=null ) { %> 
+                                                            
+                                                        <% for (var i = 0; i < AppointmentRetrieved.length; i++) { %>
+                                                                
+                                                            <% availabletimeSlots.push(AppointmentRetrieved[i]['appointmenttime']) %>     
+                                                            
+                                                        <% } %>
+                                                        
+                                                        <% if(availabletimeSlots.length == 0 ) { %> 
+                                                            <h6 id = "message">Sorry, No time slots available on this date. </h6>
+                                                        <% } %>  
+                                                        
+                                                        <% if(availabletimeSlots.length > 0 ) { %> 
+                                                            <% for (var a = 0; a < availabletimeSlots.length; a++) { %>
+                                                    
+                                                                <input type="submit" class="appointTime" name="appointmenttime" value=<%=availabletimeSlots[a] %> >
+                                                        
+                                                            <% } %>
+                                                        <% } %> 
+    
+                                                       
+    
+                                                    <% } %> 
+                                                     
+                                                    </div>
+                                                
+                                                </div>
+                                                
+                                            </form>
+                        
+                        
+                                        </div>
+            
+                                    
+                                    </div>
+                                <% } %>
+                            </div>
+                            
+
+                        </div>
+
+                        
+
+                        
+
+                    </div>
+                </section>
+        </main>
+
+        <%- include('layouts/footer'); %>
+
+            <%- include('layouts/script'); %>
+
+                <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                <!-- * *                               SB Forms JS                               * *-->
+                <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+                <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+
+</html>

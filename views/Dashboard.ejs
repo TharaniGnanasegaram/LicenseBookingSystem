@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layouts/head'); %>
+
+    <body class="d-flex flex-column h-100">
+        <main class="flex-shrink-0">
+
+            <%- include('layouts/navbar'); %>
+
+                <!-- Header-->
+                <header class="bg-darkk py-1">
+                    <div class="container px-2">
+                        <div class="row gx-5 align-items-center justify-content-center">
+                            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                                <div class="my-5 text-center text-xl-start">
+                                    <h1 class="display-5 fw-bolder mb-2">Ontario Driver's License Application Portal
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img
+                                    class="img-fluid rounded-3 my-5 bannerimg"
+                                    src="/assets/test.png" alt="Driving test" />
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+        </main>
+
+        <h2 class="kishok"> You can book G2/G drive test from this Kishok </h2>
+
+
+
+        <% if(LoggedIn && UserType == "Driver" ) { %>
+            <div id="multicol">
+
+                <div class="GFG">
+                    <a href="/G2">
+                        G2 License
+                    </a>
+                </div>
+
+                <div class="GFG">
+                    <a href="/G">
+                        G License
+                    </a>
+                </div>
+
+            </div>
+        <% } %>
+
+        <% if(!LoggedIn) { %>
+            <div id="singlecol">
+                <div class="GFG">
+                    <a href="/auth/login">
+                        Login/SignUp
+                    </a>
+                </div>
+
+            </div>
+        <% } %>
+
+                    <%- include('layouts/footer'); %>
+
+                        <%- include('layouts/script'); %>
+
+    </body>
+
+</html>

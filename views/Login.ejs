@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layouts/head'); %>
+
+    <body class="d-flex flex-column">
+        <main class="flex-shrink-0">
+
+            <%- include('layouts/navbar'); %>
+
+                <!-- Pricing section-->
+                <section class="bg-darkk py-5">
+                    <div class="container px-5 my-5">
+                        <div class="text-center mb-5">
+                            <h1 class="fw-bolder">Welcome to Login Page</h1>
+                            <p class="lead fw-normal text-muted mb-0">Login with your credentials or Signup if you are a
+                                new member</p>
+                        </div>
+
+                        <div class="registration-form">
+                            
+                            <form action="/user/login" method="POST" name="login_form" id="login_form">
+                                <div class="loginh1">
+                                    <h3>Login</h3>
+                                    <img src="/assets/login.png" class="rounded-circle p-2 bg-white">
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control item" id="username" name ="username"
+                                        placeholder="Username" required = "true">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control item" id="password" name = "password"
+                                        placeholder="Password"required = "true">
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                                    <label class="form-check-label" for="rememberPasswordCheck">
+                                        Remember password
+                                    </label>
+                                </div> -->
+                                
+                                <div class="form-group">
+                                    <input type="submit" id = "loginbtn" class="btn btn-block login" value="Login">
+                                </div>
+                                <!-- <a class="small" href="#">Forgot password?</a> -->
+                                
+
+                                <div id="newUser">
+                                    <a href="/auth/Signup"> Register New User </a>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </section>
+        </main>
+
+        <%- include('layouts/footer'); %>
+
+            <%- include('layouts/script'); %>
+
+    </body>
+
+</html>
